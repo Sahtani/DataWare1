@@ -43,10 +43,10 @@
     }
 </script>
 
-<body class="bg-white">
+<body class="bg-white h-screen">
     <header class="">
         <nav class="flex items-center justify-around gap-52">
-            <a href="index.html"><img src="/image/logo-removebg-preview.png" alt="logo.png" class="w-1/5 "></a>
+            <a href="index.html"><img src="./image/logo-removebg-preview.png" alt="logo.png" class="w-1/5 "></a>
             <ul class="flex items-center justify-between gap-14 font-Saira text-xl">
                 <il><a href="login.html" class=" text-xl text-dark ">Log in</a></il>
                 <il><a href="signup.html" class=" border-sky-500 px-6 py-2 bg-blutextbtn rounded-full text-white bg-dark  ">Sign
@@ -58,26 +58,21 @@
         </nav>
     </header>
 
-    <body>
-        <div class="flex flex-col items-center bg-btn w-full md:w-1/4 m-auto rounded-lg">
-         <h1 class="text-2xl  text-center mt-5">Sign up</h1>
-            <form action="login.php" method="post" class="flex flex-col mt-5 gap-4">
-                 
-                <input class=" px-6 py-2 w-64" type="text" id="fisrtname" name="fisrtname" required placeholder="First Name">
-                <input class=" px-6 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">
-
-                
-                
-               
-                <input class="px-6 py-2" type="text" id="username" name="email" required placeholder="E-mail">
-                
-
-                
-                <input class=" px-4 py-2" type="password" id="password" name="password" required placeholder="Password">
+        <div class="bg-blueText2 m-auto w-1/2 grid grid-cols-1 md:grid md:grid-cols-2 md:gap-10 rounded-lg mt-12">
+            <img  class="w-full m-auto ml-4" src="image/undraw_engineering_team_a7n2.svg" alt="signup" >
+         <div class="flex flex-col items-center   md:w-full mt-10  ">
+         <h1 class="text-2xl  text-center mt-3">Sign up</h1>
+            <form action="login.php" method="post" class="flex flex-col mt-4 gap-4">              
+                <input class=" px-10 py-2 w-full " type="text" id="fisrtname" name="fisrtname" required placeholder="First Name">
+                <input class=" px-10 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">        
+                <input class="px-10 py-2" type="text" id="username" name="email" required placeholder="E-mail">   
+                <input class=" px-10 py-2" type="password" id="password" name="password" required placeholder="Password">
                 <p class="text-center ">Already a member?<a class="font-bold" href="login.html">Log in</a></p>
-                <button class="px-4 py-3 text-white  bg-primary mb-5" type="submit">Register</button>
+                <button class="px-4 py-3 text-white  bg-dark mb-5" type="submit">Register</button>
             </form>
         </div>
+    </div>
+       
 
 
     </body>
