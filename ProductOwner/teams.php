@@ -1,3 +1,7 @@
+<?php
+include ('../connect.php');
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -49,20 +53,20 @@
         <div class="h-screen w-1/6 bg-white border-r shadow-md md:bg-dark">
             <ul class="space-y-4 text-lg sidebar bg-dark text-white mt-5">
                 <div class="flex items-center justify-center">
- <img src="./image/testlogo.png" alt="logo.png" class="w-full">
+                      <img src="../image/testlogo.png" alt="logo.png" class="w-full">
                 </div>
               
                 <li>
-                    <a href="index.html" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
+                    <a href="index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
                 </li>
                 <li>
-                    <a href="projet.html" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
+                    <a href="./projet.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
                 </li>
                 <li>
-                    <a href="teams.html" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
+                    <a href="./teams.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
                 </li>
                 <li>
-                    <a href="member.html" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Members</a>
+                    <a href="./member.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Members</a>
                 </li>
             </ul>
         </div>
@@ -87,11 +91,6 @@
                 </form>
 
             </div>
-            <button type="button" class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none
-        focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center
-        dark:focus:ring-[#4285F4]/55 me-2 mb-2">
-                New team ...
-            </button>
             <!-- cards -->
             <div class="grid grid-cols-3 grid-rows-2 gap-4 mt-7">
                 <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-1 col-end-1">
@@ -105,14 +104,6 @@
                         far, in reverse chronological order.
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
                     </div>
                 </div>
                 <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-2 col-end-2">
@@ -126,14 +117,6 @@
                         far, in reverse chronological order.
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
                     </div>
                 </div>
                 <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-3 col-end-3">
@@ -147,14 +130,6 @@
                         far, in reverse chronological order.
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
                     </div>
                 </div>
                 <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white ">
@@ -168,14 +143,6 @@
                         far, in reverse chronological order.
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
                     </div>
                 </div>
                 <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
@@ -189,14 +156,6 @@
                         far, in reverse chronological order.
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
                     </div>
                 </div>
                 <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-3 col-end-3 ">
@@ -210,14 +169,6 @@
                         far, in reverse chronological order.
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,10 @@
+<?php
+include ('../connect.php');
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -52,32 +59,32 @@
        
         <ul class="space-y-4 text-lg sidebar bg-dark text-white mt-5">
            <div class="flex items-center justify-center">
-          <img src="./image/testlogo.png" alt="logo.png" class="w-full">
+          <img src="../image/testlogo.png" alt="logo.png" class="w-full">
         </div>
           <li>
             <a
-              href="index.html"
+              href="index.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl"
               >Home</a
             >
           </li>
           <li>
             <a
-              href="projet.html"
+              href="./projet.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl"
               >Projects</a
             >
           </li>
           <li>
             <a
-              href="teams.html"
+              href="./teams.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl"
               >Teams</a
             >
           </li>
           <li>
             <a
-              href="member.html"
+              href="./member.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl"
               >Members</a
             >

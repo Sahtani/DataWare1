@@ -1,9 +1,16 @@
+
+<?php
+include ('connect.php');
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>DataWare Website</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,26 +51,28 @@
     </script>
     </head>
 <body class="bg-white overflow-y-hidden h-screen">
-    <header class="">
-        <nav class="flex items-center justify-around gap-52">
-        <a href="index.html"><img src="./image/logo-removebg-preview.png" alt="logo.png" class="w-1/5 "></a>
-        <ul class="flex items-center justify-between gap-14 font-Saira text-xl">
-            <il><a href="login.html" class=" text-xl text-dark " >Log in</a></il>
-            <il><a href="signup.html" class=" border-sky-500 px-6 py-2 bg-blutextbtn rounded-full text-white bg-dark  ">Sign up</a></il>
+     <header class="">
+        <nav class="flex items-center justify-around md:mt-0 mt-4">
+            <a href="index.php" class="md:w-1/5 w-1/3"><img src="./image/logo-removebg-preview.png" alt="logo.png"
+                    class=""></a>
+            <ul class="flex items-center justify-between gap-4 font-Saira text-xl ">
+                <il><a href="login.php" class=" text-dark ">Log in</a></il>
+                <il><a href="signup.php"
+                        class=" border-sky-500 md:px-6 px-2 py-2  rounded-full text-white bg-dark  ">Sign up</a></il>
 
-            <il></il>
+                <il></il>
 
-        </ul>
+            </ul>
         </nav>
     </header>
     <div class="flex flex-col ">
        
         <div class="mt-7 flex flex-col items-center justify-center">
             <h1 class="text-dark text-6xl font-Saira font-bold  " >DataWare</h1>
-            <p class="text-dark text-2xl font-Saira  mt-5  text-center md:w-1/2 mb-4">Feel free to let me know if you have any specific questions or if there's anything else you'd like to know Feel free to let me know if you have any specific </p>
+            <p class="text-dark text-2xl font-Saira  mt-5 md:mx-0 mx-4 text-center md:w-1/2 mb-4">Feel free to let me know if you have any specific questions or if there's anything else you'd like to know Feel free to let me know if you have any specific </p>
         </div>
          <div class="flex items-center justify-center 	">
-            <img src="image/e.jpg" alt="homme.png" class="w-1/3  "  />
+            <img src="image/e.jpg" alt="homme.png" class="md:w-1/3  "  />
 
         </div>
     </div>
