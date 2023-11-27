@@ -3,14 +3,26 @@ include ('../connect.php');
 ?>
 
 <?php
-$sql = "SELECT iduser,firstname,lastname,email,rol FROM users WHERE rol=0";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
- //print_r($data);afficher un tableau
+
+if (isset($_POST['submit'])) {
+    $iduser = $_GET['iduser']; 
+    $newTeam = $_POST['team'];
+    $sql = "UPDATE users SET idteam = :newTeam WHERE iduser = :iduser";
+    $sth = $conn->prepare($sql);
+    $sth->execute(['newTeam' => $newTeam, 'iduser' => $iduser]);
+    $affectedRows = $sth->rowCount();
+    if ($affectedRows > 0) {
+        // echo "Team updated successfully!";
+    } else {
+        // echo "Error updating team.";
+    }
+}
+
+
+
+$teamsQuery = $conn->query("SELECT idteam, name FROM team");
+$teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -34,6 +46,7 @@ $sth->execute();
       href="https://fonts.googleapis.com/css2?family=Inika&family=Inter:wght@100&family=Ruda&display=swap"
       rel="stylesheet"
     />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
 
     <!-- js -->
     <script src="js/navbar.js"></script>
@@ -62,7 +75,7 @@ $sth->execute();
       };
     </script>
   </head>
-  <body class="">
+  <body class="overflow-y-hidden">
     <div class="flex gap-4 mr-4">
       <div class="h-screen w-1/6 bg-white border-r shadow-md md:bg-dark">
        
@@ -72,7 +85,7 @@ $sth->execute();
         </div>
           <li>
             <a
-              href="./index.php"
+              href="../index.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl"
               >Home</a
             >
@@ -139,60 +152,25 @@ $sth->execute();
             </div>
           </form>
         </div>
-        <a href="./addmember.php"
-          type="button"
-          class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
-        >
-          New member ...
-        </a>
-        <!-- cards -->
-        <div class="grid md:grid-cols-3 md:grid-rows-2 gap-4 mt-7 grid-cols-1">
-           <?php
-  foreach($data as $arrayvalue){
-  ?>
-          <div
-            class="mt-2 p-6 border rounded-lg shadow dark:bg-white "
-          >
-            <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-               <?php   echo $arrayvalue['firstname'] ." ". $arrayvalue['lastname'] ?> 
-              </h5>
-            </a>
-            <p class="mb-3 font-normal text-dark">
-             <?php echo $arrayvalue['email']?>
-            </p>
-            <p class="mb-3 font-bold text-dark ">
-             <?php if($arrayvalue['rol']==0){ echo 'user';}
-              ?>
-            </p>
-            <div class="flex items-center justify-center">
-             <a
-                href="Addtoteam.php?iduser=<?php echo $arrayvalue['iduser']?>"
-                class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Add to team
-              </a>
-  </div>
-
-            <!-- <div class="flex items-center justify-center gap-10">
-              <a
-                href="updatemember.php?iduser=<?php echo $arrayvalue['iduser']?>"
-                class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Update
-              </a>
-              <a
-                href="deletmember.php?deletid=<?php echo $arrayvalue['iduser']?>"
-                class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd" onclick='return confirm("Are you sure you want to delete this member")'
-              >
-                Delete
-              </a>
-            </div> -->
-          </div>   
-           <?php } ?>
-          </div>
+                  
+        <form method="post" action="">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+            <select id="countries" name="team" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option disabled selected>Choose a team name</option>
+             <?php foreach ($teams as $team) : ?>
+            <option value="<?php echo $team['idteam']; ?>"><?php echo $team['name']; ?></option>
+        <?php endforeach; ?>
+            </select>
+           <button type="submit" name="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-4 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">submit</button>
+        </form>
+       
         </div>
+
       </div>
     </div>
+
+
+
+  
   </body>
 </html>

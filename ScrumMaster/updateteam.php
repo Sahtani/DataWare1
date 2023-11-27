@@ -1,28 +1,6 @@
 <?php
 include ('../connect.php');
 ?>
-<?php
-
-$errormessage="";
-if (isset($_POST['submit'])) {
-      $firstname = $_POST["firstname"];
-     $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $sql="insert into users (firstname,lastname,email,password) values(:firstname,:lastname,:email,:password)";
-        $sth =  $conn->prepare($sql);
-        $sth->execute(['firstname'=>$firstname, 'lastname'=>$lastname,'email'=>$email, 'password'=>$password]);
-if ($sth){
-    $errormessage="Member Added Successfully!";
-}else {
-        $errormessage="error.";
-        
-    } 
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -85,37 +63,67 @@ if ($sth){
                     <a href="./projet.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
                 </li>
                 <li>
-                    <a href="./teams.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
+                    <a href="./team.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
                 </li>
                 <li>
                     <a href="./member.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Members</a>
                 </li>
             </ul>
         </div>
+  <?php
+    $errormessage = "";
+$data = array();
 
+     if (isset($_GET['idteam'])) {
+    $idteam = $_GET['idteam'];
+    
+    $sql = "SELECT * from team WHERE idteam =:idteam";
+    $sth = $conn->prepare($sql);
+    $sth->execute(['idteam' => $idteam]);
+
+    $data = $sth->fetchAll();
+    // print_r($data);
+     }
+     ?>
         <div class="border-2 border-dark bg-blueText2 md:m-auto md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
             <img  class=" md:m-auto md:ml-4" src="../image/undraw_engineering_team_a7n2.svg" alt="signup" >
          <div class="flex flex-col items-center   md:w-full mt-10  ">
-         <h1 class="text-2xl font-bold  text-center mt-3">Add Member</h1>
-            <form action="" method="post" class="flex flex-col mt-4 gap-4 w-full">   
+         <h1 class="text-2xl font-bold  text-center mt-3">Update Team</h1>
+            <form  method="post"  class="flex flex-col mt-4 gap-4 w-full">   
                 <div class="mx-2">
-                     <input class="border-2 border-dark px-2 py-2   w-full  " type="text" id="fisrtname" name="firstname" required placeholder="First Name">
+                     <input class="border-2 border-dark px-2 py-2   w-full  " type="text" id="name" name="name" required value='<?php echo $data[0]['name'];?>'>
                 </div>           
                <div class="mx-2">
-                <input class="border-2 border-dark w-full px-2 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">
+                <input class="border-2 border-dark w-full px-2 py-2  " type="" id="datecreation" name="datecreation" required value='<?php echo  $data[0]['datecreation'];?>' >
     </div>        
-    <div class="mx-2">
-                <input class="border-2 border-dark  w-full px-2 py-2" type="email" id="username" name="email" required placeholder="E-mail">   
-    </div>
-    <div class="mx-2">
-                <input class="border-2 border-dark   w-full px-2 py-2" type="password" id="password" name="password" required placeholder="Password">
-    </div>
+   
              <div class="mx-2">   
-                <button class="px-4 py-3 text-white w-full  bg-dark mb-5" name="submit" type="submit">Add</button>
+                <button class="px-4 py-3 text-white w-full  bg-dark mb-5" name="submit" type="submit">Update</button>
     </div>
             </form>
            <p class="text-red-500 text-center mb-2"> <?php echo $errormessage;?></p>
         </div>
+         <?php
+if (isset($_POST["submit"])) {
+  $idteam = $_GET['idteam'];
+$name = $_POST["name"];
+$datecreation = $_POST["datecreation"];
+
+$sql = "UPDATE team SET name =:name, datecreation = :datecreation WHERE idteam = :idteam";
+$sth = $conn->prepare($sql);
+
+// Bind values for all placeholders
+$sth->execute([':name' => $name, ':datecreation' => $datecreation, ':idteam' => $idteam]);
+
+
+
+   
+    if ($sth->rowCount() > 0) {
+       header('location:./team.php');
+    } else {
+        $errormessage = "Error updating team.";
+    }
+} ?>
     </div>
        
 

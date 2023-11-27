@@ -2,24 +2,21 @@
 include ('../connect.php');
 ?>
 <?php
-$sql = "SELECT iduser,firstname,lastname,email,rol FROM users WHERE rol=0";
+$sql = "SELECT iduser,firstname,lastname,email,rol FROM users where rol in(0,2)";
 $sth =  $conn->prepare($sql);
 $sth->execute();
  $data=$sth->fetchAll();
  //print_r($data);afficher un tableau
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Dashboard</title>
+    <title>DataWare</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta name="title" content="Team and project management for DataWare">
+    <meta name="keywords" content="team, project, Members, team management, project management">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -62,7 +59,7 @@ $sth->execute();
       };
     </script>
   </head>
-  <body class="overflow-y-hidden">
+  <body class="">
     <div class="flex gap-4 mr-4">
       <div class="h-screen w-1/6 bg-white border-r shadow-md md:bg-dark">
        
@@ -152,6 +149,11 @@ $sth->execute();
             </a>
             <p class="mb-3 font-normal text-dark">
                <?php echo $arrayvalue['email']?>
+            </p>
+             <p class="mb-3 font-bold text-dark ">
+             <?php if($arrayvalue['rol']==0){ echo 'user';
+             }else if($arrayvalue['rol']==2){ echo 'ScrumMaster';}
+              ?>
             </p>
             <div class="flex items-center justify-center gap-10">
                 <a href="./updaterol.php?updaterol=<?= $arrayvalue['iduser'] ?>"

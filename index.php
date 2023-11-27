@@ -11,6 +11,8 @@ session_start();
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>DataWare Website</title>
+     <meta name="title" content="Team and project management for DataWare">
+    <meta name="keywords" content="team, project, Members, team management, project management">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

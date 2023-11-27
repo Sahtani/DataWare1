@@ -3,15 +3,16 @@ include ('../connect.php');
 ?>
 
 <?php
-$sql = "SELECT team.name as team_name, team.datecreation, project.name
+$sql = "SELECT users.idteam,team.name AS team_name, team.datecreation, project.name, users.firstname, users.lastname
 FROM team
-inner JOIN project ON team.idteam = project.idteam;
-";
+INNER JOIN project ON team.idteam = project.idteam
+INNER JOIN users ON users.idteam = users.idteam";
+
 
 $sth =  $conn->prepare($sql);
 $sth->execute();
  $data=$sth->fetchAll();
- //print_r($data);afficher un tableau
+ //print_r($data);
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,8 @@ $sth->execute();
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta name="title" content="Team and project management for DataWare">
+    <meta name="keywords" content="team, project, Members, team management, project management">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -122,12 +125,17 @@ $sth->execute();
                      <p class="mb-3 font-normal text-dark">
                           <?= $arrayvalue['name']?>
                     </p>
+                     <!-- <p class="mb-2 text-2xl font-bold tracking-tight text-dark">
+              <?php  
+                //  if ($arrayvalue['idteam'] !== null) { echo $arrayvalue['firstname'] . " " . $arrayvalue['lastname'];} 
+?>
+              </p> -->
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
+                        <a href="updateteam.php?idteam=<?php echo $arrayvalue['idteam']?>"
                             class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Update
                         </a>
-                        <a href="#"
+                        <a href="deletteam.php?idteam=<?php echo $arrayvalue['idteam']?>"
                             class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
                             Delete
                         </a>
