@@ -108,17 +108,26 @@ if (isset($_POST['submit'])) {
         </nav>
     </header>
 
-        <div class="border-2 border-dark bg-white md:m-auto md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
+        <div class="border-2 border-dark bg-white md:m-auto md:mt-12 md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
             <img  class=" md:m-auto md:ml-4" src="image/undraw_engineering_team_a7n2.svg" alt="signup" >
          <div class="flex flex-col items-center   md:w-full mt-10  ">
          <h1 class="text-2xl font-bold  text-center mt-3">Sign up</h1>
-            <form action="" method="post" class="flex flex-col mt-4 gap-4">              
-                <input class="border-2 border-dark px-8 py-2   w-full " type="text" id="fisrtname" name="firstname" required placeholder="First Name">
-                <input class="border-2 border-dark  px-8 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">        
-                <input class="border-2 border-dark px-8 py-2" type="email" id="username" name="email" required placeholder="E-mail">   
-                <input class="border-2 border-dark  px-8 py-2" type="password" id="password" name="password" required placeholder="Password">
-                <p class="text-center ">Already a member?<a class="font-bold" href="login.php">Log in</a></p>
-                <button class="px-4 py-3 text-white  bg-dark mb-5" name="submit" type="submit">Register</button>
+            <form action="" method="post" class="flex flex-col mt-4 gap-4 w-full">   
+                <div class="mx-4">
+                     <input class="border-2 border-dark px-2 py-2   w-full  " type="text" id="fisrtname" name="firstname" required placeholder="First Name">
+                </div>           
+               <div class="mx-4">
+                <input class="border-2 border-dark w-full px-2 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">
+    </div>        
+    <div class="mx-4">
+                <input class="border-2 border-dark  w-full px-2 py-2" type="email" id="username" name="email" required placeholder="E-mail">   
+    </div>
+    <div class="mx-4">
+                <input class="border-2 border-dark   w-full px-2 py-2" type="password" id="password" name="password" required placeholder="Password">
+    </div>
+             <div class="mx-4">   
+                <button class="px-4 py-3 text-white w-full  bg-dark mb-5" name="submit" type="submit">Add</button>
+    </div>
             </form>
            <p class="text-red-500 text-center mb-2"> <?php echo $errormessage;?></p>
         </div>

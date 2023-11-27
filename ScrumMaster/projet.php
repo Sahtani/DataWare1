@@ -2,8 +2,12 @@
 include ('../connect.php');
 
 ?>
-
-
+<?php
+$sql = "SELECT * FROM project";
+$sth =  $conn->prepare($sql);
+$sth->execute();
+ $data=$sth->fetchAll();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -93,138 +97,34 @@ include ('../connect.php');
                     </div>
                 </form>
             </div>
-            <button type="button"
-                class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
-                New project ...
-            </button>
             <!-- cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white md:col-start-1 md:col-end-1">
+<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
+ <?php
+  foreach($data as $arrayvalue){
+  ?>
+  <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
+                          <?php echo $arrayvalue['name'] ?>  
                         </h5>
                     </a>
                     <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
+                        <?php echo $arrayvalue['start_date'] ?> 
+                    </p>
+                     <p class="mb-3 font-normal text-dark">
+                        <?php echo $arrayvalue['end_date'] ?>  
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="#"
+                        <a href="assign.php?projectid=<?= $arrayvalue['idproject'] ?>"
                             class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
+                            assign projects to teams 
                         </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
+                      
                     </div>
                 </div>
-                <div class="mt-2 p-6 border rounded-lg border-2 border-dark shadow dark:bg-white md:col-start-2 md:col-end-2">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border  rounded-lg shadow dark:bg-white md:col-start-3 md:col-end-3">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight dark:dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-3 col-end-3">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight dark:text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                        <a href="#"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-                        <a href="#"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
-                            Delete
-                        </a>
-                    </div>
-                </div>
+                   <?php
+ }
+  ?>  
             </div>
         </div>
     </div>

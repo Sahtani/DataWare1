@@ -25,12 +25,14 @@ if (isset($_POST['submit'])) {
          $data=$sth->fetchAll();
          if (count($data)>0) {
             $_SESSION['data'] = $data;
-        }else { $errormessage="wrong credentials.";}
+        }else { $errormessage="this account does not exist.";}
         //  
         if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==1) {
             header('location:./ProductOwner/projet.php');
         }else if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==2){
              header('location:./ScrumMaster/projet.php');
+        }else {
+            header('location:index.php');
         }
 
         //  print_r($_SESSION['data']);
@@ -107,19 +109,25 @@ if (isset($_POST['submit'])) {
 
     <div class="border-2 border-dark bg-white flex flex-col items-center   md:w-1/4 md:m-auto mx-4 mt-12 rounded-lg">
         <img src="image/profile.svg" alt="face.jpg" class="w-40 h-40 rounded-full mt-3" />
-        <form action="" method="post" class="flex flex-col mt-5   ">
-
+        <form action="" method="post" class="flex flex-col mt-5 w-full   ">
+ <div class="mx-4">
             <label class="text-dark" for="username">Email:</label>
-            <input class="border border-dark    rounded-full px-12 py-2" type="email" id="username" name="email" required
+           
+            <input class="border border-dark  w-full  rounded-full px-2 py-2" type="email" id="username" name="email" required
                 class="">
-
+</div>  
+<div class="mx-4">
             <label class="text-dark" for="password">Password:</label>
-            <input class="border border-dark    rounded-full md:px-12 py-2" type="password" id="password"
+          
+            <input class="border border-dark  w-full  rounded-full md:px-2 py-2" type="password" id="password"
                 name="password" required>
+                </div>
+
             <p class=" mt-3 text-center ">Already a member?<a class="font-bold" href="signup.php"> Sign up</a></p>
+<div class="mx-4">
 
-
-            <button class="px-4 py-3 text-white rounded-full bg-dark mt-5 mb-5" name="submit" type="submit">Login</button>
+            <button class="px-4 py-3 w-full text-white rounded-full bg-dark mt-5 mb-5" name="submit" type="submit">Login</button>
+</div>
         </form>
          <p class="text-red-500 text-center mb-4"> <?php echo $errormessage;?></p>
     </div>

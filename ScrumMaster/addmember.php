@@ -1,6 +1,28 @@
 <?php
 include ('../connect.php');
 ?>
+<?php
+
+$errormessage="";
+if (isset($_POST['submit'])) {
+      $firstname = $_POST["firstname"];
+     $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $sql="insert into users (firstname,lastname,email,password) values(:firstname,:lastname,:email,:password)";
+        $sth =  $conn->prepare($sql);
+        $sth->execute(['firstname'=>$firstname, 'lastname'=>$lastname,'email'=>$email, 'password'=>$password]);
+if ($sth){
+    $errormessage="Member Added Successfully!";
+}else {
+        $errormessage="error.";
+        
+    } 
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -55,7 +77,7 @@ include ('../connect.php');
                     <img src="../image/testlogo.png" alt="logo.png" class="w-full">
                 </div>
                 <li>
-                    <a href="index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
+                    <a href="../index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
                 </li>
                 <li>
                     <a href="./projet.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
@@ -68,68 +90,34 @@ include ('../connect.php');
                 </li>
             </ul>
         </div>
-<div class="w-3/6 m-auto">
-    <?php
-    $errormessage = "";
-$data = array();
 
-     if (isset($_GET['update_id'])) {
-    $update_id = $_GET['update_id'];
-    
-    $sql = "SELECT name, start_date,end_date FROM project WHERE idproject =$update_id";
-    $sth = $conn->prepare($sql);
-    $sth->execute();
-
-    $data = $sth->fetchAll();
-    // print_r($data);
-
-
-
-if (!empty($data)) {
-   
-    $name = $data[0]['name'];
-    $start_date = $data[0]['start_date'];
-    $end_date = $data[0]['end_date'];  
-}
-else {echo "batata";}}
-?>
-<form class=" m-auto bg-blueText2 w-full md:w-4/6 rounded-lg" method="post" action="./projet.php">
-  <div class="mb-5 mx-4">
-    <label class="block p-4 text-sm font-medium  dark:text-white">Project name </label>
-    <input type="name" id="name" name="nameprojet" class="bg-white  border border-dark text-gray-500 text-sm rounded-lg w-full  p-2.5  " value='<?php echo  $name ?> ' required>
-  </div>
-  <div class="mb-5 mx-4">
-    <label class="block block px-2 pb-2 text-sm font-medium  dark:text-white">Start date </label>
-<input id="date" name="startdate" class="bg-white border border-dark text-sm rounded-lg w-full  p-2.5 text-gray-500 " required value=' <?php echo $start_date ?>'>
-  </div>
-  <div class="mb-5 mx-4">
-    <label class="block px-2 pb-2 text-sm font-medium  dark:text-white"> End date </label>
-    <input id="date" name="enddate" class="bg-white border border-dark  text-sm rounded-lg w-full  p-2.5 text-gray-500 " required value='<?php echo $end_date ?> '>
-  </div>
-  <div class="mx-4">
-  <button type="submit" name="submit" class="text-white bg-dark hover:bg-blue-700 font-medium rounded-lg text-sm w-full mb-4  py-2.5 text-center">Submit</button>
-  <p class="text-dark text-center pb-4"> <?php echo $errormessage;?></p>
-  </div>
-</form>
+        <div class="border-2 border-dark bg-blueText2 md:m-auto md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
+            <img  class=" md:m-auto md:ml-4" src="../image/undraw_engineering_team_a7n2.svg" alt="signup" >
+         <div class="flex flex-col items-center   md:w-full mt-10  ">
+         <h1 class="text-2xl font-bold  text-center mt-3">Add Member</h1>
+            <form action="" method="post" class="flex flex-col mt-4 gap-4 w-full">   
+                <div class="mx-2">
+                     <input class="border-2 border-dark px-2 py-2   w-full  " type="text" id="fisrtname" name="firstname" required placeholder="First Name">
+                </div>           
+               <div class="mx-2">
+                <input class="border-2 border-dark w-full px-2 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">
+    </div>        
+    <div class="mx-2">
+                <input class="border-2 border-dark  w-full px-2 py-2" type="email" id="username" name="email" required placeholder="E-mail">   
     </div>
-    <?php
-   if (isset($_POST["submit"])) {
-    $name = $_POST["nameprojet"];
-    $startdate = $_POST["startdate"];
-    $enddate = $_POST["enddate"];
-    $sql = "UPDATE project SET name = :name, start_date = :start_date, end_date = :end_date WHERE idproject = :update_id";
-    $sth = $conn->prepare($sql);
-    $sth->execute([':name' => $name, ':start_date' => $startdate, ':end_date' => $enddate, ':update_id' => $_GET['update_id']]);
+    <div class="mx-2">
+                <input class="border-2 border-dark   w-full px-2 py-2" type="password" id="password" name="password" required placeholder="Password">
+    </div>
+             <div class="mx-2">   
+                <button class="px-4 py-3 text-white w-full  bg-dark mb-5" name="submit" type="submit">Add</button>
+    </div>
+            </form>
+           <p class="text-red-500 text-center mb-2"> <?php echo $errormessage;?></p>
+        </div>
+    </div>
+       
 
-    if ($sth) {
-        $errormessage = "Project updated Successfully!";
-    } else {
-        $errormessage = "Error.";
-    }
-}
 
-            ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
     </body>
-    </html>
 
+</html>

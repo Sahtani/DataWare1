@@ -7,11 +7,6 @@ $sth =  $conn->prepare($sql);
 $sth->execute();
  $data=$sth->fetchAll();
  //print_r($data);afficher un tableau
-
-
-
-
-
 ?>
 
 
