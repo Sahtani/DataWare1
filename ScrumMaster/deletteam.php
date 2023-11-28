@@ -11,7 +11,7 @@ include ('../connect.php');
     $sth = $conn->prepare($sql);
     $sth->execute();
     if($sth){
-        header("location:./team.php");
+        // header("location:./team.php");
     }
     else{
         echo "Error deleting team.";

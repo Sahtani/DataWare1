@@ -4,7 +4,7 @@ include ('../connect.php');
 <?php
 if (isset($_POST['submit'])) {
   $updaterol=$_GET['updaterol'];
-    $rol = $_POST["rol"];
+    $rol = $_POST['rol'];
     $sql="update users set rol=:rol where iduser=:updaterol";
     $sth =  $conn->prepare($sql);
     $sth->execute(['rol'=> $rol, 'updaterol'=>$updaterol]);

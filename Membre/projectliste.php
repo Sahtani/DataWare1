@@ -3,7 +3,8 @@ include ('../connect.php');
 
 ?>
 <?php
-$sql = "SELECT * FROM project";
+$sql = "SELECT project.name, project.start_date, project.end_date FROM project INNER JOIN users ON project.idproject = users.idproject WHERE users.rol = 3";
+
 $sth =  $conn->prepare($sql);
 $sth->execute();
  $data=$sth->fetchAll();
@@ -65,16 +66,13 @@ $sth->execute();
                     <img src="../image/testlogo.png" alt="logo.png" class="w-full">
                 </div>
                 <li>
-                    <a href="index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
+                    <a href="../index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
                 </li>
                 <li>
-                    <a href="./projet.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
+                    <a href="./projectliste.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
                 </li>
                 <li>
-                    <a href="./teams.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
-                </li>
-                <li>
-                    <a href="./member.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Members</a>
+                    <a href="./teamliste.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
                 </li>
             </ul>
         </div>
@@ -99,10 +97,6 @@ $sth->execute();
                     </div>
                 </form>
             </div>
-            <a href="./addproject.php" type="submit" name="submit"
-                class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
-                New project ...
-            </a>
             <!-- cards -->
 <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
  <?php
@@ -121,14 +115,11 @@ $sth->execute();
                         <?php echo $arrayvalue['end_date'] ?>  
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="updateprojet.php?update_id=<?= $arrayvalue['idproject'] ?>"
+                        <a href="assign.php?projectid=<?= $arrayvalue['idproject'] ?>"
                             class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
+                            assign projects to teams 
                         </a>
-                        <a href="deletproject.php?delete_id=<?=$arrayvalue['idproject']?>"
-                            class="px-6 py-2 text-sm font-medium text-center text-white  rounded-lg bg-deleted hover:hoverd" onclick='return confirm("Are you sure you want to delete this project")'>
-                            Delete
-                        </a>
+                      
                     </div>
                 </div>
                    <?php

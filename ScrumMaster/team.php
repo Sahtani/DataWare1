@@ -3,10 +3,9 @@ include ('../connect.php');
 ?>
 
 <?php
-$sql = "SELECT users.idteam,team.name AS team_name, team.datecreation, project.name, users.firstname, users.lastname
+$sql = "SELECT team.idteam,team.name AS team_name, team.datecreation, project.name
 FROM team
-INNER JOIN project ON team.idteam = project.idteam
-INNER JOIN users ON users.idteam = users.idteam";
+LEFT JOIN project ON team.idteam = project.idteam";
 
 
 $sth =  $conn->prepare($sql);
@@ -126,9 +125,7 @@ $sth->execute();
                           <?= $arrayvalue['name']?>
                     </p>
                      <!-- <p class="mb-2 text-2xl font-bold tracking-tight text-dark">
-              <?php  
-                //  if ($arrayvalue['idteam'] !== null) { echo $arrayvalue['firstname'] . " " . $arrayvalue['lastname'];} 
-?>
+             
               </p> -->
                     <div class="flex items-center justify-center gap-10">
                         <a href="updateteam.php?idteam=<?php echo $arrayvalue['idteam']?>"
@@ -136,7 +133,7 @@ $sth->execute();
                             Update
                         </a>
                         <a href="deletteam.php?idteam=<?php echo $arrayvalue['idteam']?>"
-                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd">
+                            class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd"onclick='return confirm("Are you sure you want to delete this team")'>
                             Delete
                         </a>
                     </div>

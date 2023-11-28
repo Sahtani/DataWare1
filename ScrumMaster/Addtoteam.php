@@ -3,23 +3,19 @@ include ('../connect.php');
 ?>
 
 <?php
-
 if (isset($_POST['submit'])) {
     $iduser = $_GET['iduser']; 
     $newTeam = $_POST['team'];
-    $sql = "UPDATE users SET idteam = :newTeam WHERE iduser = :iduser";
+    $sql = "UPDATE users SET idteam = :newTeam ,rol=3 WHERE iduser = :iduser";
     $sth = $conn->prepare($sql);
     $sth->execute(['newTeam' => $newTeam, 'iduser' => $iduser]);
     $affectedRows = $sth->rowCount();
     if ($affectedRows > 0) {
-        // echo "Team updated successfully!";
+        header("Location:./member.php");
     } else {
-        // echo "Error updating team.";
+        echo "Error updating team.";
     }
 }
-
-
-
 $teamsQuery = $conn->query("SELECT idteam, name FROM team");
 $teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>

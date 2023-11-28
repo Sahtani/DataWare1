@@ -3,7 +3,8 @@ include ('../connect.php');
 ?>
 
 <?php
-$sql = "SELECT iduser,firstname,lastname,email,rol FROM users WHERE rol=0";
+ $errormessage="";
+$sql = "SELECT iduser,firstname,lastname,email,rol,idteam FROM users WHERE rol=0";
 $sth =  $conn->prepare($sql);
 $sth->execute();
  $data=$sth->fetchAll();
@@ -72,7 +73,7 @@ $sth->execute();
         </div>
           <li>
             <a
-              href="./index.php"
+              href="../index.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl"
               >Home</a
             >
@@ -102,7 +103,7 @@ $sth->execute();
       </div>
       <div class="w-4/5">
         <div class="rounded-lg mt-10 px-4 py-3 mr-4">
-          <form>
+          <form method="POST">
             <div class="relative">
               <div
                 class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
@@ -155,41 +156,37 @@ $sth->execute();
           >
             <a href="#">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-               <?php   echo $arrayvalue['firstname'] ." ". $arrayvalue['lastname'] ?> 
+               <?php   echo $arrayvalue['firstname'] ." ". $arrayvalue['lastname']; ?> 
               </h5>
             </a>
             <p class="mb-3 font-normal text-dark">
-             <?php echo $arrayvalue['email']?>
+             <?php echo $arrayvalue['email'];?>
             </p>
             <p class="mb-3 font-bold text-dark ">
              <?php if($arrayvalue['rol']==0){ echo 'user';}
               ?>
             </p>
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center gap-5">
+                <?php
+              if ($arrayvalue['idteam'] == null) {
+              ?>
              <a
                 href="Addtoteam.php?iduser=<?php echo $arrayvalue['iduser']?>"
                 class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Add to team
               </a>
-  </div>
-
-            <!-- <div class="flex items-center justify-center gap-10">
-              <a
-                href="updatemember.php?iduser=<?php echo $arrayvalue['iduser']?>"
-                class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Update
-              </a>
-              <a
-                href="deletmember.php?deletid=<?php echo $arrayvalue['iduser']?>"
-                class="px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg bg-deleted hover:hoverd" onclick='return confirm("Are you sure you want to delete this member")'
-              >
-                Delete
-              </a>
-            </div> -->
-          </div>   
-           <?php } ?>
+           <?php
+              }else{
+              ?>
+                <a href="Removemember.php?iduser=<?= $arrayvalue["iduser"]?>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center bg-deleted text-white bg-hoverd rounded-lg hover:bg-dark " onclick="return confirm('Are you sure you want to delete this member?')">Remove a team member</a>
+              <?php } ?>
+            <p><?php echo  $errormessage;?></p>
+           </div>
+          </div> 
+         
+           <?php } ?> 
+          </div>  
           </div>
         </div>
       </div>

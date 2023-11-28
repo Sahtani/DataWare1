@@ -1,18 +1,37 @@
 <?php
 include ('../connect.php');
-$errormessage="";
-$sql = "SELECT iduser,firstname,lastname,email,rol FROM users where rol in(0,2)";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
- //print_r($data);afficher un tableau
 ?>
+
+<?php
+
+if (isset($_POST['submit'])) {
+    $iduser = $_GET['iduser']; 
+    $newproject = $_POST['project'];
+    echo $newproject;
+    $sql = "UPDATE users SET idproject = :newproject WHERE iduser = :iduser";
+    $sth = $conn->prepare($sql);
+    $sth->execute([':newproject' => $newproject, ':iduser' => $iduser]);
+    $affectedRows = $sth->rowCount();
+    if ($affectedRows > 0) {
+        // echo "batata";
+        header("Location: member.php");
+    } else {
+        echo "Error updating member.";
+    }
+}
+
+
+
+$queryproject = $conn->query("SELECT idproject, name FROM project");
+$projects = $queryproject->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>DataWare</title>
+    <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
      <meta name="title" content="Team and project management for DataWare">
     <meta name="keywords" content="team, project, Members, team management, project management">
@@ -58,7 +77,7 @@ $sth->execute();
       };
     </script>
   </head>
-  <body class="">
+  <body class="overflow-y-hidden">
     <div class="flex gap-4 mr-4">
       <div class="h-screen w-1/6 bg-white border-r shadow-md md:bg-dark">
        
@@ -82,7 +101,7 @@ $sth->execute();
           </li>
           <li>
             <a
-              href="./teams.php"
+              href="./team.php"
               class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl"
               >Teams</a
             >
@@ -135,45 +154,18 @@ $sth->execute();
             </div>
           </form>
         </div>
-        <!-- cards -->
-        <div class="grid grid-cols-3 grid-rows-2 gap-4 mt-7">
-  <?php
-  foreach($data as $arrayvalue){
-  ?>
-          <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
-              <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-               <?php echo $arrayvalue['firstname'] ." ". $arrayvalue['lastname'] ?>
-              </h5>
-            </a>
-            <p class="mb-3 font-normal text-dark">
-               <?php echo $arrayvalue['email']?>
-            </p>
-             <p class="mb-3 font-bold text-dark ">
-             <?php if($arrayvalue['rol']==0){ echo 'user';
-             }else if($arrayvalue['rol']==2){ echo 'ScrumMaster';}
-              ?>
-            </p>
-            <div class="flex items-center justify-center gap-10">
-              <?php
-               if ($arrayvalue['rol'] ==0) {
-              ?>
-                 <a href="./updaterol.php?updaterol=<?= $arrayvalue['iduser'] ?>"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Update
-                        </a>
-           <?php
-              }else if($arrayvalue['rol'] ==2){
-              ?>
-                <a href="assignprojectt.php?iduser=<?= $arrayvalue["iduser"]?>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center bg-deleted text-white bg-hoverd rounded-lg hover:bg-dark ">assign project</a>
-              <?php } ?>
-            
-            </div>
-          </div>
-
-         <?php
- }
-  ?>  
+                  
+        <form method="post" action="">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+            <select id="countries" name="project" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option disabled selected>Choose a project name</option>
+             <?php foreach ($projects as $project) : ?>
+            <option value="<?php echo $project['idproject']; ?>"><?php echo $project['name']; ?></option>
+        <?php endforeach; ?>
+            </select>
+           <button type="submit" name="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-4 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">submit</button>
+        </form>
+       
         </div>
 
       </div>

@@ -31,6 +31,8 @@ if (isset($_POST['submit'])) {
             header('location:./ProductOwner/projet.php');
         }else if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==2){
              header('location:./ScrumMaster/projet.php');
+        }else if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==3){
+             header('location:./Membre/projectliste.php');
         }else {
             header('location:index.php');
         }

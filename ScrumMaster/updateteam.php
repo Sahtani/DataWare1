@@ -1,6 +1,45 @@
 <?php
 include ('../connect.php');
+
+
+
+    $errormessage = "";
+$data = array();
+$idteam="";
+if (isset($_GET['idteam'])) {
+    $idteam = $_GET['idteam'];
+
+    $sql = "SELECT * from team WHERE idteam =:idteam";
+    $sth = $conn->prepare($sql);
+    $sth->execute(['idteam' => $idteam]);
+
+    $data = $sth->fetchAll();
+    // print_r($data);
+}
+
+if (isset($_POST["submit"])) {
+    // $idteam = $_GET['idteam'];
+    $name = $_POST["name"];
+    $datecreation = $_POST["datecreation"];
+
+    $sql = "UPDATE team SET name =:name, datecreation = :datecreation WHERE idteam = :idteam";
+    $sth = $conn->prepare($sql);
+
+    // Bind values for all placeholders
+    $sth->execute([':name' => $name, ':datecreation' => $datecreation, ':idteam' => $idteam]);
+
+
+
+
+    if ($sth->rowCount() > 0) {
+        header('Location:./team.php');
+    } else {
+        $errormessage = "Error updating team.";
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -70,23 +109,10 @@ include ('../connect.php');
                 </li>
             </ul>
         </div>
-  <?php
-    $errormessage = "";
-$data = array();
-
-     if (isset($_GET['idteam'])) {
-    $idteam = $_GET['idteam'];
-    
-    $sql = "SELECT * from team WHERE idteam =:idteam";
-    $sth = $conn->prepare($sql);
-    $sth->execute(['idteam' => $idteam]);
-
-    $data = $sth->fetchAll();
-    // print_r($data);
-     }
-     ?>
-        <div class="border-2 border-dark bg-blueText2 md:m-auto md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
-            <img  class=" md:m-auto md:ml-4" src="../image/undraw_engineering_team_a7n2.svg" alt="signup" >
+  
+        <div class="border-2 border-dark bg-blueText2 md:m-auto h-fit md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
+            <div class="flex items-center justify-center p-4">
+            <img  class=" md:m-auto md:ml-4" src="../image/undraw_engineering_team_a7n2.svg" alt="signup" ></div>
          <div class="flex flex-col items-center   md:w-full mt-10  ">
          <h1 class="text-2xl font-bold  text-center mt-3">Update Team</h1>
             <form  method="post"  class="flex flex-col mt-4 gap-4 w-full">   
@@ -103,27 +129,7 @@ $data = array();
             </form>
            <p class="text-red-500 text-center mb-2"> <?php echo $errormessage;?></p>
         </div>
-         <?php
-if (isset($_POST["submit"])) {
-  $idteam = $_GET['idteam'];
-$name = $_POST["name"];
-$datecreation = $_POST["datecreation"];
-
-$sql = "UPDATE team SET name =:name, datecreation = :datecreation WHERE idteam = :idteam";
-$sth = $conn->prepare($sql);
-
-// Bind values for all placeholders
-$sth->execute([':name' => $name, ':datecreation' => $datecreation, ':idteam' => $idteam]);
-
-
-
-   
-    if ($sth->rowCount() > 0) {
-       header('location:./team.php');
-    } else {
-        $errormessage = "Error updating team.";
-    }
-} ?>
+         
     </div>
        
 

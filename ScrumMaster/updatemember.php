@@ -127,7 +127,7 @@ if (isset($_POST["submit"])) {
 
    
     if ($sth->rowCount() > 0) {
-       header('location:./member.php');
+    //    header('location:./member.php');
     } else {
         $errormessage = "Error updating member.";
     }

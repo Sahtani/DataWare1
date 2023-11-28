@@ -2,6 +2,17 @@
 include ('../connect.php');
 ?>
 
+<?php
+$sql = "SELECT team.idteam,team.name AS team_name, team.datecreation, project.name
+FROM team
+LEFT JOIN project ON team.idteam = project.idteam";
+
+
+$sth =  $conn->prepare($sql);
+$sth->execute();
+ $data=$sth->fetchAll();
+ //print_r($data);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -49,8 +60,7 @@ include ('../connect.php');
         };
     </script>
 </head>
-
-<body class="overflow-y-hidden">
+<body>
     <div class="flex gap-4 mr-4">
         <div class="h-screen w-1/6 bg-white border-r shadow-md md:bg-dark">
             <ul class="space-y-4 text-lg sidebar bg-dark text-white mt-5">
@@ -59,13 +69,14 @@ include ('../connect.php');
                 </div>
               
                 <li>
-                    <a href="index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
+                    <a href="../index.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Home</a>
                 </li>
+                
                 <li>
                     <a href="./projet.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-2xl">Projects</a>
                 </li>
                 <li>
-                    <a href="./teams.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
+                    <a href="./team.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
                 </li>
                 <li>
                     <a href="./member.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Members</a>
@@ -94,85 +105,23 @@ include ('../connect.php');
 
             </div>
             <!-- cards -->
-            <div class="grid grid-cols-3 grid-rows-2 gap-4 mt-7">
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-1 col-end-1">
+            <div class="grid md:grid-cols-3 md:grid-rows-2 gap-4 mt-7 grid-cols-1">
+               <?php  foreach($data as $arrayvalue){;?> 
+               <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
+                            <?= $arrayvalue['team_name']?>
                         </h5>
                     </a>
                     <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
+                          <?= $arrayvalue['datecreation']?>
                     </p>
-                    <div class="flex items-center justify-center gap-10">
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-2 col-end-2">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
+                     <p class="mb-3 font-normal text-dark">
+                          <?= $arrayvalue['name']?>
                     </p>
-                    <div class="flex items-center justify-center gap-10">
-                    </div>
+                   
                 </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-3 col-end-3">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white ">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight  dark:dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                    </div>
-                </div>
-                <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white col-start-3 col-end-3 ">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight  dark:text-dark">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p class="mb-3 font-normal text-dark">
-                        Here are the biggest enterprise technology acquisitions of 2021 so
-                        far, in reverse chronological order.
-                    </p>
-                    <div class="flex items-center justify-center gap-10">
-                    </div>
-                </div>
+               <?php } ?>      
             </div>
         </div>
     </div>
