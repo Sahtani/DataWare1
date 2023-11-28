@@ -1,10 +1,10 @@
 <?php
 include ('../connect.php');
-
 ?>
 <?php
-$sql = "SELECT project.name, project.start_date, project.end_date FROM project INNER JOIN users ON project.idproject = users.idproject WHERE users.rol = 3";
-
+// die($_SESSION['data'][0]['iduser']);
+$iduser= isset($_SESSION['data'][0]['iduser']) ? $_SESSION['data'][0]['iduser'] : 0;
+$sql = "SELECT project.idproject,project.name,project.start_date,project.end_date FROM project RIGHT JOIN users ON users.idproject = project.idproject WHERE users.iduser =$iduser AND users.rol = 3";
 $sth =  $conn->prepare($sql);
 $sth->execute();
  $data=$sth->fetchAll();
@@ -113,6 +113,7 @@ $sth->execute();
                     </p>
                      <p class="mb-3 font-normal text-dark">
                         <?php echo $arrayvalue['end_date'] ?>  
+                        
                     </p>
                     <div class="flex items-center justify-center gap-10">
                         <a href="assign.php?projectid=<?= $arrayvalue['idproject'] ?>"

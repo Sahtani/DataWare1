@@ -9,7 +9,16 @@ include ('../connect.php');
 
      if (isset($_GET['delete_id'])) {
     $delet_id = $_GET['delete_id'];
-    
+    $projectusers="SELECT * FROM users WHERE idproject=$delet_id";
+    $stmts = $conn->prepare($projectusers);
+    $stmts->execute();
+    $data=$stmts->fetchAll();
+    // print_r($data);
+    foreach ($data as $key) {
+    $update = "UPDATE users SET idproject=null  WHERE idproject=$delet_id";
+    $query = $conn->prepare($update);
+    $query->execute();
+    }
     $sql = "DELETE FROM project WHERE idproject =$delet_id";
     $sth = $conn->prepare($sql);
     $sth->execute();

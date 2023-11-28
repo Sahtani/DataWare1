@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
      $passwordValid = validatePassword($password);
 
     if ($emailValid && $passwordValid) {
-        $sql="select email,password,rol from users where email=:email and password=:password";
+        $sql="select * from users where email=:email and password=:password";
         $sth =  $conn->prepare($sql);
         $sth->execute(['email'=>$email, 'password'=>$password]);
          $data=$sth->fetchAll();
@@ -27,6 +27,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['data'] = $data;
         }else { $errormessage="this account does not exist.";}
         //  
+        
         if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==1) {
             header('location:./ProductOwner/projet.php');
         }else if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==2){
