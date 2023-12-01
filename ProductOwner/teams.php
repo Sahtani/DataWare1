@@ -1,18 +1,24 @@
 <?php
 include ('../connect.php');
+session_start();
+if($_SESSION['autoriser'] != "oui"){
+  header("Location: ../login.php");
+  exit();
+  
+
+}
 ?>
 
-<?php
-$sql = "SELECT team.idteam,team.name AS team_name, team.datecreation, project.name
-FROM team
-LEFT JOIN project ON team.idteam = project.idteam";
+    <?php
+    $sql = "SELECT team.idteam,team.name AS team_name, team.datecreation, project.name
+    FROM team
+    LEFT JOIN project ON team.idteam = project.idteam";
 
 
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
- //print_r($data);
-?>
+    $sth =  $conn->prepare($sql);
+    $sth->execute();
+    $data=$sth->fetchAll();
+    ?>
 <!DOCTYPE html>
 <html>
 

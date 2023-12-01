@@ -1,12 +1,16 @@
 <?php
-include ('../connect.php');
-$errormessage="";
-$sql = "SELECT iduser,firstname,lastname,email,rol FROM users where rol in(0,2)";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
- //print_r($data);afficher un tableau
-?>
+      include ('../connect.php');
+      session_start();
+      if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+      }
+      $errormessage="";
+      $sql = "SELECT iduser,firstname,lastname,email,rol FROM users where rol in(0,2)";
+      $sth =  $conn->prepare($sql);
+      $sth->execute();
+      $data=$sth->fetchAll();
+      ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -137,9 +141,9 @@ $sth->execute();
         </div>
         <!-- cards -->
         <div class="grid grid-cols-3 grid-rows-2 gap-4 mt-7">
-  <?php
-  foreach($data as $arrayvalue){
-  ?>
+        <?php
+        foreach($data as $arrayvalue){
+        ?>
           <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
               <a href="#">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
@@ -162,20 +166,18 @@ $sth->execute();
                             class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Update
                         </a>
-           <?php
-              }else if($arrayvalue['rol'] ==2){
-              ?>
+                <?php
+                  }else if($arrayvalue['rol'] ==2){
+                  ?>
                 <a href="assignprojectt.php?iduser=<?= $arrayvalue["iduser"]?>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center bg-deleted text-white bg-hoverd rounded-lg hover:bg-dark ">assign project</a>
               <?php } ?>
             
             </div>
           </div>
-
          <?php
- }
-  ?>  
+        }
+          ?>  
         </div>
-
       </div>
     </div>
 

@@ -25,9 +25,9 @@ if (isset($_POST['submit'])) {
          $data=$sth->fetchAll();
          if (count($data)>0) {
             $_SESSION['data'] = $data;
-        }else { $errormessage="this account does not exist.";}
-        //  
-        
+        }else { $errormessage="this account does not exist.";
+        }
+        $_SESSION['data'][0]['autoriser']= "oui";
         if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==1) {
             header('location:./ProductOwner/projet.php');
         }else if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==2){
@@ -37,21 +37,13 @@ if (isset($_POST['submit'])) {
         }else {
             header('location:index.php');
         }
-
-        //  print_r($_SESSION['data']);
-        
-
-         
     } else {
         $errormessage="Invalid input. Please check your information and try again.";
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -66,8 +58,6 @@ if (isset($_POST['submit'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inika&family=Inter:wght@100&family=Ruda&display=swap"
         rel="stylesheet">
-
-
 </head>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -134,8 +124,6 @@ if (isset($_POST['submit'])) {
         </form>
          <p class="text-red-500 text-center mb-4"> <?php echo $errormessage;?></p>
     </div>
-
-
 </body>
 
 </html>

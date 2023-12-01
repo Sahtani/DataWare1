@@ -1,5 +1,13 @@
 <?php
 include ('../connect.php');
+session_start();
+if($_SESSION['autoriser'] != "oui"){
+  header("Location: login.php");
+  exit();
+  
+
+}
+
 ?>
 <?php
 
@@ -14,14 +22,10 @@ if (isset($_POST['submit'])) {
 if ($sth){
     $errormessage="Project Added Successfully!";
 }else {
-        $errormessage="error.";
-        
+        $errormessage="error.";  
     } 
-
 }
-
 ?>
-
 <!DOCTYPE html>
 <html>
 

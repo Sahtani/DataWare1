@@ -1,17 +1,20 @@
 <?php
-include ('../connect.php');
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        }
 ?>
 
-<?php
-$sql = "SELECT team.idteam,team.name AS team_name, team.datecreation, project.name
-FROM team
-LEFT JOIN project ON team.idteam = project.idteam";
-
-
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
- //print_r($data);
+        <?php
+        $sql = "SELECT team.idteam,team.name AS team_name, team.datecreation, project.name
+        FROM team
+        LEFT JOIN project ON team.idteam = project.idteam";
+        $sth =  $conn->prepare($sql);
+        $sth->execute();
+        $data=$sth->fetchAll();
+       
 ?>
 <!DOCTYPE html>
 <html>
@@ -124,9 +127,6 @@ $sth->execute();
                      <p class="mb-3 font-normal text-dark">
                           <?= $arrayvalue['name']?>
                     </p>
-                     <!-- <p class="mb-2 text-2xl font-bold tracking-tight text-dark">
-             
-              </p> -->
                     <div class="flex items-center justify-center gap-10">
                         <a href="updateteam.php?idteam=<?php echo $arrayvalue['idteam']?>"
                             class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

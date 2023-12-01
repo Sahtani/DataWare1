@@ -1,13 +1,19 @@
 <?php
 include ('../connect.php');
+session_start();
+if($_SESSION['autoriser'] != "oui"){
+  header("Location: ../login.php");
+  exit();
+  
+
+}
 ?>
 <?php
-// die($_SESSION['data'][0]['iduser']);
-$iduser= isset($_SESSION['data'][0]['iduser']) ? $_SESSION['data'][0]['iduser'] : 0;
-$sql = "SELECT project.idproject,project.name,project.start_date,project.end_date FROM project RIGHT JOIN users ON users.idproject = project.idproject WHERE users.iduser =$iduser AND users.rol = 3";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
+        $iduser= isset($_SESSION['data'][0]['iduser']) ? $_SESSION['data'][0]['iduser'] : 0;
+        $sql = "SELECT project.idproject,project.name,project.start_date,project.end_date FROM project RIGHT JOIN users ON users.idproject = project.idproject WHERE users.iduser =$iduser AND users.rol = 3";
+        $sth =  $conn->prepare($sql);
+        $sth->execute();
+        $data=$sth->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -99,9 +105,9 @@ $sth->execute();
             </div>
             <!-- cards -->
 <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
- <?php
-  foreach($data as $arrayvalue){
-  ?>
+        <?php
+        foreach($data as $arrayvalue){
+        ?>
   <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
@@ -112,8 +118,7 @@ $sth->execute();
                         <?php echo $arrayvalue['start_date'] ?> 
                     </p>
                      <p class="mb-3 font-normal text-dark">
-                        <?php echo $arrayvalue['end_date'] ?>  
-                        
+                        <?php echo $arrayvalue['end_date'] ?>             
                     </p>
                     <div class="flex items-center justify-center gap-10">
                         <a href="assign.php?projectid=<?= $arrayvalue['idproject'] ?>"
@@ -123,12 +128,11 @@ $sth->execute();
                       
                     </div>
                 </div>
-                   <?php
- }
-  ?>  
+        <?php
+            }
+        ?>  
             </div>
         </div>
     </div>
 </body>
-
 </html>

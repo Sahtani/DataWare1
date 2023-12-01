@@ -1,13 +1,17 @@
 <?php
-include ('../connect.php');
-
-?>
-<?php
-$sql = "SELECT * FROM project";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
-?>
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        }
+        ?>
+        <?php
+        $sql = "SELECT * FROM project";
+        $sth =  $conn->prepare($sql);
+        $sth->execute();
+        $data=$sth->fetchAll();
+        ?>
 
 <!DOCTYPE html>
 <html>
@@ -104,11 +108,11 @@ $sth->execute();
                 New project ...
             </a>
             <!-- cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
- <?php
-  foreach($data as $arrayvalue){
-  ?>
-  <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
+        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
+        <?php
+        foreach($data as $arrayvalue){
+        ?>
+        <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
                           <?php echo $arrayvalue['name'] ?>  

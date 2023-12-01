@@ -1,5 +1,12 @@
 <?php
-include ('../connect.php');
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        
+
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -132,13 +139,8 @@ if (isset($_POST["submit"])) {
         $errormessage = "Error updating member.";
     }
 }
-
-
             ?>
     </div>
-       
-
-
     </body>
 
 </html>

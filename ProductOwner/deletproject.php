@@ -1,12 +1,15 @@
-   
- <?php
+<?php
 include ('../connect.php');
-?>  
-   
+session_start();
+if($_SESSION['autoriser'] != "oui"){
+  header("Location: ../login.php");
+  exit();
+  
+
+}
+?>    
    <?php
     $errormessage = "";
-
-
      if (isset($_GET['delete_id'])) {
     $delet_id = $_GET['delete_id'];
     $projectusers="SELECT * FROM users WHERE idproject=$delet_id";

@@ -1,14 +1,20 @@
 <?php
 include ('../connect.php');
+session_start();
+if($_SESSION['autoriser'] != "oui"){
+  header("Location: ../login.php");
+  exit();
+  
+
+}
 ?>
 <?php
-// die($_SESSION['data'][0]['iduser']);
-$iduser= isset($_SESSION['data'][0]['iduser']) ? $_SESSION['data'][0]['iduser'] : 0;
-$sql = "SELECT team.idteam,team.name,team.datecreation FROM team
- RIGHT JOIN users ON users.idteam = team.idteam WHERE users.iduser =$iduser AND users.rol = 3";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
+        $iduser= isset($_SESSION['data'][0]['iduser']) ? $_SESSION['data'][0]['iduser'] : 0;
+        $sql = "SELECT team.idteam,team.name,team.datecreation FROM team
+        RIGHT JOIN users ON users.idteam = team.idteam WHERE users.iduser =$iduser AND users.rol = 3";
+        $sth =  $conn->prepare($sql);
+        $sth->execute();
+        $data=$sth->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +36,6 @@ $sth->execute();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inika&family=Inter:wght@100&family=Ruda&display=swap"
         rel="stylesheet" />
-
     <!-- js -->
     <script src="js/navbar.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,7 +63,6 @@ $sth->execute();
         };
     </script>
 </head>
-
 <body class="md:overflow-y-hidden">
     <div class="flex gap-4 mr-4">
         <div class="h-screen w-1/6 bg-white border-r shadow-md md:bg-dark">
@@ -99,11 +103,11 @@ $sth->execute();
                 </form>
             </div>
             <!-- cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
- <?php
-  foreach($data as $arrayvalue){
-  ?>
-  <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
+     <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
+    <?php
+    foreach($data as $arrayvalue){
+    ?>
+          <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-dark">
                           <?php echo $arrayvalue['name'] ?>  
@@ -113,12 +117,11 @@ $sth->execute();
                         <?php echo $arrayvalue['datecreation'] ?> 
                     </p>
                 </div>
-                   <?php
- }
-  ?>  
+     <?php
+       }
+     ?>  
             </div>
         </div>
     </div>
 </body>
-
 </html>

@@ -1,27 +1,29 @@
 <?php
-include ('../connect.php');
+      include ('../connect.php');
+      session_start();
+      if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+      }
 ?>
 
 <?php
 
-if (isset($_POST['submit'])) {
-    $projectid = $_GET['projectid']; 
-    $newTeam = $_POST['team'];
-    $sql = "UPDATE project SET idteam = :newTeam WHERE idproject = :projectid";
-    $sth = $conn->prepare($sql);
-    $sth->execute(['newTeam' => $newTeam, 'projectid' => $projectid]);
-    $affectedRows = $sth->rowCount();
-    if ($affectedRows > 0) {
-        // echo "Team updated successfully!";
-    } else {
-        echo "Error updating team.";
-    }
-}
-
-
-
-$teamsQuery = $conn->query("SELECT idteam, name FROM team");
-$teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
+        if (isset($_POST['submit'])) {
+            $projectid = $_GET['projectid']; 
+            $newTeam = $_POST['team'];
+            $sql = "UPDATE project SET idteam = :newTeam WHERE idproject = :projectid";
+            $sth = $conn->prepare($sql);
+            $sth->execute(['newTeam' => $newTeam, 'projectid' => $projectid]);
+            $affectedRows = $sth->rowCount();
+            if ($affectedRows > 0) {
+                // echo "Team updated successfully!";
+            } else {
+                echo "Error updating team.";
+            }
+        }
+        $teamsQuery = $conn->query("SELECT idteam, name FROM team");
+        $teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -159,7 +161,7 @@ $teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
             <option disabled selected>Choose a team name</option>
              <?php foreach ($teams as $team) : ?>
             <option value="<?php echo $team['idteam']; ?>"><?php echo $team['name']; ?></option>
-        <?php endforeach; ?>
+             <?php endforeach; ?>
             </select>
            <button type="submit" name="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-4 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">submit</button>
         </form>
@@ -168,9 +170,5 @@ $teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
 
       </div>
     </div>
-
-
-
-  
   </body>
 </html>

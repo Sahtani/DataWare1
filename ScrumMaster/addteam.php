@@ -1,27 +1,31 @@
 <?php
-include ('../connect.php');
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        
+
+        }
 ?>
-
-
-
 <?php
 
-$errormessage="";
-if (isset($_POST['submit'])) {
-      $name = $_POST["name"];
-     $datecreation = $_POST["datecreation"];
-  
-    $sql="insert into team (name,datecreation) values(:name,:datecreation)";
-        $sth =  $conn->prepare($sql);
-        $sth->execute(['name'=>$name, 'datecreation'=>$datecreation]);
-if ($sth){
-    $errormessage="team Added Successfully!";
-}else {
-        $errormessage="error.";
+        $errormessage="";
+        if (isset($_POST['submit'])) {
+            $name = $_POST["name"];
+            $datecreation = $_POST["datecreation"];
         
-    } 
+            $sql="insert into team (name,datecreation) values(:name,:datecreation)";
+                $sth =  $conn->prepare($sql);
+                $sth->execute(['name'=>$name, 'datecreation'=>$datecreation]);
+        if ($sth){
+            $errormessage="team Added Successfully!";
+        }else {
+                $errormessage="error.";
+                
+            } 
 
-}
+        }
 
 ?>
 <!DOCTYPE html>
@@ -104,11 +108,11 @@ if ($sth){
                 </div>           
                <div class="mx-2">
                 <input class="border-2 border-dark w-full px-2 py-2  " type="date" id="datecreatione" name="datecreation" required >
-    </div>        
+               </div>        
   
              <div class="mx-2">   
                 <button class="px-4 py-3 text-white w-full  bg-dark mb-5" name="submit" type="submit">Add</button>
-    </div>
+             </div>
             </form>
            <p class="text-red-500 text-center mb-2"> <?php echo $errormessage;?></p>
         </div>

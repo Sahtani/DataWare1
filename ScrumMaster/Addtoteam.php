@@ -1,23 +1,30 @@
 <?php
-include ('../connect.php');
-?>
+      include ('../connect.php');
+      session_start();
+      if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        
 
-<?php
-if (isset($_POST['submit'])) {
-    $iduser = $_GET['iduser']; 
-    $newTeam = $_POST['team'];
-    $sql = "UPDATE users SET idteam = :newTeam ,rol=3 WHERE iduser = :iduser";
-    $sth = $conn->prepare($sql);
-    $sth->execute(['newTeam' => $newTeam, 'iduser' => $iduser]);
-    $affectedRows = $sth->rowCount();
-    if ($affectedRows > 0) {
-        header("Location:./member.php");
-    } else {
-        echo "Error updating team.";
-    }
-}
-$teamsQuery = $conn->query("SELECT idteam, name FROM team");
-$teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
+      }
+      ?>
+
+      <?php
+      if (isset($_POST['submit'])) {
+          $iduser = $_GET['iduser']; 
+          $newTeam = $_POST['team'];
+          $sql = "UPDATE users SET idteam = :newTeam ,rol=3 WHERE iduser = :iduser";
+          $sth = $conn->prepare($sql);
+          $sth->execute(['newTeam' => $newTeam, 'iduser' => $iduser]);
+          $affectedRows = $sth->rowCount();
+          if ($affectedRows > 0) {
+              header("Location:./member.php");
+          } else {
+              echo "Error updating team.";
+          }
+      }
+      $teamsQuery = $conn->query("SELECT idteam, name FROM team");
+      $teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -164,9 +171,5 @@ $teams = $teamsQuery->fetchAll(PDO::FETCH_ASSOC);
 
       </div>
     </div>
-
-
-
-  
   </body>
 </html>

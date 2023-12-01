@@ -1,14 +1,21 @@
 <?php
-include ('../connect.php');
-?>
-<?php
-if (isset($_POST['submit'])) {
-  $updaterol=$_GET['updaterol'];
-    $rol = $_POST['rol'];
-    $sql="update users set rol=:rol where iduser=:updaterol";
-    $sth =  $conn->prepare($sql);
-    $sth->execute(['rol'=> $rol, 'updaterol'=>$updaterol]);
- }
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+          header("Location: ../login.php");
+          exit();
+          
+
+        }
+        ?>
+        <?php
+        if (isset($_POST['submit'])) {
+          $updaterol=$_GET['updaterol'];
+            $rol = $_POST['rol'];
+            $sql="update users set rol=:rol where iduser=:updaterol";
+            $sth =  $conn->prepare($sql);
+            $sth->execute(['rol'=> $rol, 'updaterol'=>$updaterol]);
+        }
 ?>
 
 <!DOCTYPE html>
@@ -153,9 +160,5 @@ if (isset($_POST['submit'])) {
 
       </div>
     </div>
-
-
-
-  
   </body>
 </html>

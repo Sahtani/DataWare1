@@ -1,18 +1,20 @@
 <?php
-include ('../connect.php');
+    include ('../connect.php');
+    session_start();
+    if($_SESSION['autoriser'] != "oui"){
+      header("Location: ../login.php");
+      exit();
+      
+    }
 ?>
-
 <?php
- $errormessage="";
-$sql = "SELECT iduser,firstname,lastname,email,rol,idteam FROM users WHERE rol=0";
-$sth =  $conn->prepare($sql);
-$sth->execute();
- $data=$sth->fetchAll();
- //print_r($data);afficher un tableau
+      $errormessage="";
+      $sql = "SELECT iduser,firstname,lastname,email,rol,idteam FROM users WHERE rol=0";
+      $sth =  $conn->prepare($sql);
+      $sth->execute();
+      $data=$sth->fetchAll();
+      //print_r($data);afficher un tableau
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -149,8 +151,8 @@ $sth->execute();
         <!-- cards -->
         <div class="grid md:grid-cols-3 md:grid-rows-2 gap-4 mt-7 grid-cols-1">
            <?php
-  foreach($data as $arrayvalue){
-  ?>
+          foreach($data as $arrayvalue){
+          ?>
           <div
             class="mt-2 p-6 border rounded-lg shadow dark:bg-white "
           >

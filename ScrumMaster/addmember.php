@@ -1,25 +1,30 @@
 <?php
-include ('../connect.php');
-?>
-<?php
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        }
+        ?>
+        <?php
 
-$errormessage="";
-if (isset($_POST['submit'])) {
-      $firstname = $_POST["firstname"];
-     $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $sql="insert into users (firstname,lastname,email,password) values(:firstname,:lastname,:email,:password)";
-        $sth =  $conn->prepare($sql);
-        $sth->execute(['firstname'=>$firstname, 'lastname'=>$lastname,'email'=>$email, 'password'=>$password]);
-if ($sth){
-    $errormessage="Member Added Successfully!";
-}else {
-        $errormessage="error.";
-        
-    } 
+        $errormessage="";
+        if (isset($_POST['submit'])) {
+            $firstname = $_POST["firstname"];
+            $lastname = $_POST["lastname"];
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $sql="insert into users (firstname,lastname,email,password) values(:firstname,:lastname,:email,:password)";
+                $sth =  $conn->prepare($sql);
+                $sth->execute(['firstname'=>$firstname, 'lastname'=>$lastname,'email'=>$email, 'password'=>$password]);
+        if ($sth){
+            $errormessage="Member Added Successfully!";
+        }else {
+                $errormessage="error.";
+                
+            } 
 
-}
+        }
 
 ?>
 
@@ -103,23 +108,19 @@ if ($sth){
                 </div>           
                <div class="mx-2">
                 <input class="border-2 border-dark w-full px-2 py-2  " type="text" id="lastname" name="lastname" required placeholder="Last Name">
-    </div>        
-    <div class="mx-2">
+                </div>        
+               <div class="mx-2">
                 <input class="border-2 border-dark  w-full px-2 py-2" type="email" id="username" name="email" required placeholder="E-mail">   
-    </div>
-    <div class="mx-2">
+               </div>
+              <div class="mx-2">
                 <input class="border-2 border-dark   w-full px-2 py-2" type="password" id="password" name="password" required placeholder="Password">
-    </div>
+              </div>
              <div class="mx-2">   
                 <button class="px-4 py-3 text-white w-full  bg-dark mb-5" name="submit" type="submit">Add</button>
-    </div>
+             </div>
             </form>
            <p class="text-red-500 text-center mb-2"> <?php echo $errormessage;?></p>
         </div>
     </div>
-       
-
-
     </body>
-
 </html>

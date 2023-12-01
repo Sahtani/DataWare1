@@ -1,42 +1,35 @@
 <?php
-include ('../connect.php');
+        include ('../connect.php');
+        session_start();
+        if($_SESSION['autoriser'] != "oui"){
+        header("Location: ../login.php");
+        exit();
+        }
+            $errormessage = "";
+        $data = array();
+        $idteam="";
+        if (isset($_GET['idteam'])) {
+            $idteam = $_GET['idteam'];
 
+            $sql = "SELECT * from team WHERE idteam =:idteam";
+            $sth = $conn->prepare($sql);
+            $sth->execute(['idteam' => $idteam]);
+            $data = $sth->fetchAll();
+        }
 
+        if (isset($_POST["submit"])) {
+            $name = $_POST["name"];
+            $datecreation = $_POST["datecreation"];
 
-    $errormessage = "";
-$data = array();
-$idteam="";
-if (isset($_GET['idteam'])) {
-    $idteam = $_GET['idteam'];
-
-    $sql = "SELECT * from team WHERE idteam =:idteam";
-    $sth = $conn->prepare($sql);
-    $sth->execute(['idteam' => $idteam]);
-
-    $data = $sth->fetchAll();
-    // print_r($data);
-}
-
-if (isset($_POST["submit"])) {
-    // $idteam = $_GET['idteam'];
-    $name = $_POST["name"];
-    $datecreation = $_POST["datecreation"];
-
-    $sql = "UPDATE team SET name =:name, datecreation = :datecreation WHERE idteam = :idteam";
-    $sth = $conn->prepare($sql);
-
-    // Bind values for all placeholders
-    $sth->execute([':name' => $name, ':datecreation' => $datecreation, ':idteam' => $idteam]);
-
-
-
-
-    if ($sth->rowCount() > 0) {
-        header('Location:./team.php');
-    } else {
-        $errormessage = "Error updating team.";
-    }
-}
+            $sql = "UPDATE team SET name =:name, datecreation = :datecreation WHERE idteam = :idteam";
+            $sth = $conn->prepare($sql);
+            $sth->execute([':name' => $name, ':datecreation' => $datecreation, ':idteam' => $idteam]);
+            if ($sth->rowCount() > 0) {
+                header('Location:./team.php');
+            } else {
+                $errormessage = "Error updating team.";
+            }
+        }
 
 ?>
 
@@ -110,7 +103,7 @@ if (isset($_POST["submit"])) {
             </ul>
         </div>
   
-        <div class="border-2 border-dark bg-blueText2 md:m-auto h-fit md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10 rounded-lg mt-12">
+        <div class="border-2 border-dark bg-blueText2 md:m-auto h-fit md:w-1/2 grid grid-cols-1 md:grid mx-2 md:grid-cols-2 md:gap-10   rounded-lg mt-12">
             <div class="flex items-center justify-center p-4">
             <img  class=" md:m-auto md:ml-4" src="../image/undraw_engineering_team_a7n2.svg" alt="signup" ></div>
          <div class="flex flex-col items-center   md:w-full mt-10  ">
@@ -131,9 +124,6 @@ if (isset($_POST["submit"])) {
         </div>
          
     </div>
-       
-
-
     </body>
 
 </html>
