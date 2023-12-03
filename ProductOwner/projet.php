@@ -1,10 +1,11 @@
 <?php
         include ('../connect.php');
-        session_start();
-        if($_SESSION['autoriser'] != "oui"){
-        header("Location: ../login.php");
-        exit();
-        }
+if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {                                                                         
+  header("Location: ../login.php");
+  exit();
+  
+
+}
         ?>
         <?php
         $sql = "SELECT * FROM project";
@@ -79,6 +80,9 @@
                 </li>
                 <li>
                     <a href="./member.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Members</a>
+                </li>
+                 <li>
+                    <a href="../logout.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Log out</a>
                 </li>
             </ul>
         </div>

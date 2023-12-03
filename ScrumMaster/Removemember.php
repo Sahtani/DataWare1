@@ -1,13 +1,11 @@
 <?php
         include('../connect.php');
-        session_start();
-        if($_SESSION['autoriser'] != "oui"){
-        header("Location: ../login.php");
-        exit();
-        
+    if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {                                                                         
+  header("Location: ../login.php");
+  exit();
+  
 
-        }
-
+}
         $errormessage = "";
 
         if (isset($_GET['iduser'])) {

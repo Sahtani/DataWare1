@@ -1,11 +1,9 @@
 <?php
 include ('../connect.php');
-session_start();
-if($_SESSION['autoriser'] != "oui"){
-  header("Location: ../login.php");
-  exit();
-  
 
+if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true){                                                                         
+   header("Location: ../login.php");
+    exit();
 }
 ?>
 <?php
@@ -15,7 +13,6 @@ if($_SESSION['autoriser'] != "oui"){
         $sth->execute();
         $data=$sth->fetchAll();
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -80,6 +77,9 @@ if($_SESSION['autoriser'] != "oui"){
                 <li>
                     <a href="./teamliste.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Teams</a>
                 </li>
+                 <li>
+                    <a href="../logout.php" class="block py-2 px-4 hover:bg-btn hover:text-dark text-xl">Log out</a>
+                </li>
             </ul>
         </div>
         <div class="w-4/5">
@@ -121,10 +121,7 @@ if($_SESSION['autoriser'] != "oui"){
                         <?php echo $arrayvalue['end_date'] ?>             
                     </p>
                     <div class="flex items-center justify-center gap-10">
-                        <a href="assign.php?projectid=<?= $arrayvalue['idproject'] ?>"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-dark dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            assign projects to teams 
-                        </a>
+                        
                       
                     </div>
                 </div>

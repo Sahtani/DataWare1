@@ -1,7 +1,6 @@
 <?php
 include ('../connect.php');
-session_start();
-if($_SESSION['autoriser'] != "oui"){
+if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {                                                                         
   header("Location: ../login.php");
   exit();
   

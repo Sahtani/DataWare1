@@ -25,9 +25,12 @@ if (isset($_POST['submit'])) {
          $data=$sth->fetchAll();
          if (count($data)>0) {
             $_SESSION['data'] = $data;
+            $_SESSION['autoriser']=true;
+            
         }else { $errormessage="this account does not exist.";
         }
-        $_SESSION['data'][0]['autoriser']= "oui";
+        
+
         if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==1) {
             header('location:./ProductOwner/projet.php');
         }else if(isset( $_SESSION['data'][0]['rol'])&& $_SESSION['data'][0]['rol']==2){
