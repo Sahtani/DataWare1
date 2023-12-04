@@ -8,7 +8,7 @@ if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true){
 ?>
 <?php
         $iduser= isset($_SESSION['data'][0]['iduser']) ? $_SESSION['data'][0]['iduser'] : 0;
-        $sql = "SELECT project.idproject,project.name,project.start_date,project.end_date FROM project RIGHT JOIN users ON users.idproject = project.idproject WHERE users.iduser =$iduser AND users.rol = 3";
+        $sql = "SELECT project.idproject,project.name,project.start_date,project.end_date FROM project INNER JOIN team ON project.idteam = team.idteam  INNER JOIN users ON team.idteam=users.idteam WHERE users.iduser =$iduser AND users.rol = 3";
         $sth =  $conn->prepare($sql);
         $sth->execute();
         $data=$sth->fetchAll();
