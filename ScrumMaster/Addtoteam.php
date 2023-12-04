@@ -3,8 +3,6 @@
     if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {                                                                         
     header("Location: ../login.php");
     exit();
-  
-
 }
       ?>
 

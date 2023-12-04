@@ -15,8 +15,7 @@
         LEFT JOIN project ON team.idteam = project.idteam";
         $sth =  $conn->prepare($sql);
         $sth->execute();
-        $data=$sth->fetchAll();
-       
+        $data=$sth->fetchAll();      
 ?>
 <!DOCTYPE html>
 <html>
