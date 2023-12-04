@@ -124,8 +124,8 @@ if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {
                     <p class="mb-3 font-normal text-dark">
                           <?= $arrayvalue['datecreation']?>
                     </p>
-                     <p class="mb-3 font-normal text-dark">
-                          <?= $arrayvalue['name']?>
+                     <p class="mb-3 text-dark font-bold">
+                       <?= $arrayvalue['name']?>
                     </p>
                    
                 </div>
