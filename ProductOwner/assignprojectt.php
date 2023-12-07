@@ -13,13 +13,11 @@ if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {
 if (isset($_POST['submit'])) {
     $iduser = $_GET['iduser']; 
     $newproject = $_POST['project'];
-    echo $newproject;
     $sql = "UPDATE users SET idproject = :newproject WHERE iduser = :iduser";
     $sth = $conn->prepare($sql);
     $sth->execute([':newproject' => $newproject, ':iduser' => $iduser]);
     $affectedRows = $sth->rowCount();
-    if ($affectedRows > 0) {
-        // echo "batata";
+    if ($affectedRows>0) {
         header("Location: member.php");
     } else {
         echo "Error updating member.";

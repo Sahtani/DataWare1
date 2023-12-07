@@ -12,6 +12,7 @@ if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true){
         $sth =  $conn->prepare($sql);
         $sth->execute();
         $data=$sth->fetchAll();
+        $affectedRows = $sth->rowCount();
 ?>
 <!DOCTYPE html>
 <html>
@@ -106,6 +107,7 @@ if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true){
             <!-- cards -->
 <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 mt-7">
         <?php
+         if ($affectedRows>0){
         foreach($data as $arrayvalue){
         ?>
   <div class="mt-2 p-6 border rounded-lg shadow dark:bg-white">
@@ -126,6 +128,8 @@ if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true){
                     </div>
                 </div>
         <?php
+            }}else{
+              echo'<p class="text-dark font-bold text-xl">No projects<p>' ; 
             }
         ?>  
             </div>

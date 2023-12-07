@@ -1,8 +1,8 @@
 <?php
         include ('../connect.php');
        if(!isset($_SESSION['autoriser'])&& $_SESSION['autoriser']!=true) {                                                                         
-  header("Location: ../login.php");
-  exit();
+        header("Location: ../login.php");
+        exit();
   
 
 }
@@ -15,7 +15,8 @@
         LEFT JOIN project ON team.idteam = project.idteam";
         $sth =  $conn->prepare($sql);
         $sth->execute();
-        $data=$sth->fetchAll();      
+        $data=$sth->fetchAll(); 
+             
 ?>
 <!DOCTYPE html>
 <html>
